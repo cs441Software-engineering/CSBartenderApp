@@ -1,6 +1,6 @@
 <style>
 	.btn {
-		margin-top: 50px;
+		margin-top: 20px;
 	}
 
 	.jumbotron h2 {
@@ -8,20 +8,20 @@
 	}
 
 	img {
-		max-width: 300px;
+		max-width: 100px;
 	}
 </style>
 <div class="row col-md-6 col-md-offset-3">
 	<div class="jumbotron">
-		<h2> Your Favorites </h2>
+		<h2> Welcome to Bartender! </h2>
 	</div>
 </div>
+
+
+
 <div class="row col-md-6 col-md-offset-3">
-	<div ng-repeat="drink in app.drinks" class="jumbotron">
-		<img src="{{drink.pic}}"></img>
-		<br>
-		<button class="btn btn-block btn-primary">
-			<span>Details of {{drink.name}}</span>
+	<div class="jumbotron">
+		<button type="rest" onclick = "location.href='http://localhost:3000/search'"> Search for a drink! 
 		</button>
 	</div>
 </div>

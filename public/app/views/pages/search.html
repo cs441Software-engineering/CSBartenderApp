@@ -12,3 +12,12 @@
 	}
 </style>
 <input ng-change="search.searchIng()" ng-model="search.searchString" type="text" class="form-control" placeholder="  Search by ingredient...">
+
+<div class="row col-md-6 col-md-offset-3">
+	<div  ng-repeat="drink in app.drinks" class="jumbotron">
+		<h2> Your Results </h2>
+		{{drink.id}}
+		{{drink.name}}
+	</div>
+</div>
+
