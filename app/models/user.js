@@ -17,7 +17,12 @@ var UserSchema = new Schema({
 		type: String,
 		required: true,
 		select: false
-	}
+	},
+	role_status:{
+		type:String,
+		required: true,
+		
+}
 });
 
 // This is middleware that happens before a user is saved

@@ -16,7 +16,7 @@ module.exports = function(app, express) {
 	// Notice it is the first route, this is very important.
 	apiRouter.post('/authenticate', function(req, res) {
 		if(req.body.username && req.body.password) {
-			User.findOne({ username: req.body.username }).select('name username password').exec(function(err, user) {
+			User.findOne({ username: req.body.username }).select('name username password role_status').exec(function(err, user) {
 				if(err)
 					throw err;
 				if(!user) {

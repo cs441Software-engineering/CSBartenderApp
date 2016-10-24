@@ -38,6 +38,7 @@ app.post('/register', function(req, res) {
 		var user = new User();
 		user.username = req.body.username;
 		user.password = req.body.password;
+		user.role_status = 'normal';
 		user.save(function(err) {
 			if (err) {
 				if (err.code == 11000) 
