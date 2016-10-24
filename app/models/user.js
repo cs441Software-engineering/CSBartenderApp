@@ -18,6 +18,12 @@ var UserSchema = new Schema({
 		required: true,
 		select: false
 	}
+	role:
+	{
+		type:String,
+		required: true,
+
+	}
 });
 
 // This is middleware that happens before a user is saved
