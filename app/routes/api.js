@@ -7,6 +7,8 @@ var http = require('http');
 var config = require('../../config');
 var secret = config.secret;
 var drinkApi = require ('../../app/routes/drinkApiController');
+var Drink = require('../models/drink');
+
 
 module.exports = function(app, express) {
 	var apiRouter = express.Router();
@@ -182,24 +184,50 @@ module.exports = function(app, express) {
 	// XXX
 
 	apiRouter.post('/addDrink', function(req, res) {
+		var IDflag = 'bad';
+		var NAMEflag = 'bad';
+		var dri = new Drink();
 		if(req.body.drinkName) {
-			var dri = new Drink();
+			//var dri = new Drink();
 			dri.name = req.body.drinkName;
+			//dri.drinkOccasions = req.body.d
 			dri.save(function(err) {
 				if (err) {
 					if (err.code == 11000)
-						return res.json({ success: false, message: 'A ingredient with that name already exists. '});
+						return res.json({ success: false, message: 'A drink with that name already exists. '});
 					else
 						return res.json({ success: false, message: err});
 				} else {
-					return res.json({ success: true, message: 'Ingredient created!'});
+					IDflag = 'good';
 				}
 			});
-		} else {
+
+		}
+		if(req.body.drinkIDField) {
+
+			dri.drinkIDField = req.body.drinkId;
+			dri.save(function(err) {
+				if (err) {
+					if (err.code == 11000)
+						return res.json({ success: false, message: 'A drink with that ID already exists. '});
+					else
+						return res.json({ success: false, message: err});
+				} else {
+					NAMEflag = 'good';
+				}
+			});
+		}
+		if(IDflag == 'bad' || NAMEflag == 'bad') {
 			res.status(403).send({
 				success: false,
-				message: 'Drink name not found.'
+				message: 'Could not add drink.'
 			});
+		} else {
+			dri.drinkOccasions = req.body.drinkOcs;
+			dri.drinkDiscription = req.body.drinkDx;
+			dri.drinkIngredients = req.body.drinkIngs;
+
+			return res.json({ success: true, message: 'Drink created!'});
 		}
 	});
 
