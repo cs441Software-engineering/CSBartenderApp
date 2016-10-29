@@ -184,12 +184,14 @@ module.exports = function(app, express) {
 	// XXX
 
 	apiRouter.post('/addDrink', function(req, res) {
-		var IDflag = 'bad';
-		var NAMEflag = 'bad';
 		var dri = new Drink();
-		if(req.body.drinkName) {
+		if(req.body.drinkName && req.body.drinkIDField && req.body.drinkOcs && req.body.drinkDx && req.body.drinkIngs) {
 			//var dri = new Drink();
 			dri.name = req.body.drinkName;
+			dri.drinkIDField = req.body.drinkId;
+			dri.drinkOccasions = req.body.drinkOcs;
+			dri.drinkDiscription = req.body.drinkDx;
+			dri.drinkIngredients = req.body.drinkIngs;
 			//dri.drinkOccasions = req.body.d
 			dri.save(function(err) {
 				if (err) {
@@ -197,42 +199,11 @@ module.exports = function(app, express) {
 						return res.json({ success: false, message: 'A drink with that name already exists. '});
 					else
 						return res.json({ success: false, message: err});
-				} else {
-					IDflag = 'good';
 				}
 			});
 
-		}
-		if(req.body.drinkIDField) {
-
-			dri.drinkIDField = req.body.drinkId;
-			dri.save(function(err) {
-				if (err) {
-					if (err.code == 11000)
-						return res.json({ success: false, message: 'A drink with that ID already exists. '});
-					else
-						return res.json({ success: false, message: err});
-				} else {
-					NAMEflag = 'good';
-				}
-			});
-		}
-		if(IDflag == 'bad' || NAMEflag == 'bad') {
-			res.status(403).send({
-				success: false,
-				message: 'Could not add drink.'
-			});
-		} else {
-			dri.drinkOccasions = req.body.drinkOcs;
-			dri.drinkDiscription = req.body.drinkDx;
-			dri.drinkIngredients = req.body.drinkIngs;
-
-			return res.json({ success: true, message: 'Drink created!'});
 		}
 	});
-
-
-
 
 	return apiRouter;
 };
