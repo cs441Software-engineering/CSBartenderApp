@@ -1,17 +1,37 @@
 <style>
-	
+	.jumbotron {
+		background-color: transparent !important;
+	}
+	.btn {
+		width: 100px !important;
+	}
+	.btn-primary {
+		background-color: #4E8DEB !important;
+	}
+	.btn-login {
+		color: white;
+		background-color: #44B8AD !important;
+	}
+	.container {
+		width: 100%;
+	}
+	footer {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		height: 100px;
+		background-color: #283548;
+	}
 </style>
 <div class="row col-md-6 col-md-offset-3">
-	<div class="view hm-black-strong">
-		<div class="full-bg-img flex-center">
-			<ul class="animated fadeInUp">
-				<li><h1 class="h1-responsive">Bartender App Project</h1></li>
-				<li><p>Because bartending is life.</p></li>
-				<li>
-					<a href="/register" class="btn btn-primary btn-lg">Sign up!</a>
-					<a href="/login" class="btn btn-default btn-lg">Log In</a>
-				</li>
-			</ul>
-		</div>
-	 </div>
+	<div class="jumbotron">
+		<h2>Bartender App</h2>
+		<h6>"Because bartending is life."</h6>
+		<a href="/register" class="btn btn-primary">Sign up!</a>
+		<a href="/login" class="btn btn-login">Login</a>
+	</div>
 </div>
+
+<footer>
+		
+</footer>

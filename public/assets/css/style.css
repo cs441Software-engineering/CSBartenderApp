@@ -4,6 +4,14 @@ body {
 	color: white !important;
 }
 
+.navbar {
+	background-color: #283548 !important;
+}
+
+.navbar > .container {
+	background-color: #283548;
+}
+
 .jumbotron {
 	text-align: center;
 	opacity: 0.9;
