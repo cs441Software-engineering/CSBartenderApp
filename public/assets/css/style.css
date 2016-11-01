@@ -1,5 +1,6 @@
 body {
-	font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+	/*font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;*/
+	font-family: cursive !important;
 	/*font-size: 0px !important;*/
 	color: white !important;
 }
