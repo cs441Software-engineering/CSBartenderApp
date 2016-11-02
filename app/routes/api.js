@@ -119,7 +119,7 @@ module.exports = function(app, express) {
 	apiRouter.get('/getDrinkBySearch/:ingName', function (req, res) {
 		drinkApi.getDrinkQuickSearch(req.params.ingName, function(data, error) {
 				// console.log(data);
-				//drinkApi.addIngredient(data);//adds ingredient
+				drinkApi.addIngredient(data);//adds ingredient
 				drinkApi.getIngredientsForDrink(data);
 				res.json({
 					success:true,
