@@ -1,4 +1,5 @@
 var config  = require('../../config');
+var Ingredient = require('../models/ingredient');
 var request = require('request'); //http request package
 
 //Get requests for drink
@@ -33,6 +34,16 @@ function getIngredientsForDrink(data)
 {
 	var URLs = [];
 
+	if(data == null) 
+	{
+		return URLs;
+	}
+
+	if(data.length == 0 || data.length == null)
+	{
+		return URLs;
+	}
+
 
 	if (data.hasOwnProperty("error"))
 	{
@@ -41,7 +52,7 @@ function getIngredientsForDrink(data)
 
 	if (data.result.length == 0) {
 		drinksArray += ']';
-		return URLs;
+		return drinksArray;
 	}
 
 
@@ -84,6 +95,28 @@ function getIngredientsForDrink(data)
 
 }
 
+function addIngredient(data) {
+	var ingredients = [];
+	if (data.hasOwnProperty("error")) {
+		return;
+	}
+	if (data.result.length == 0) {
+		return ingredients;
+	}
+	for (x = 0; x<data.result.length; x++) {
+		for (i = 0; i<data.result[x].ingredients.length; i++) {
+			var ing = data.result[x].ingredients[i].id;	
+			var newIng = new Ingredient();
+			newIng.name = ing;
+			newIng.save();
+			ingredients.push(ing);
+			
+		}
+	}
+	
+	console.log(ingredients);
+	}
+	
 
 
 
@@ -92,5 +125,6 @@ module.exports = {
 	getRequest:getRequest,
 	getDrinksWith:getDrinksWith,
 	getDrinkQuickSearch:getDrinkQuickSearch,
-	getIngredientsForDrink:getIngredientsForDrink
+	getIngredientsForDrink:getIngredientsForDrink,
+	addIngredient:addIngredient
 }
