@@ -36,9 +36,9 @@ angular.module('appCtrl', [])
 		vm.drinks = [];
 		vm.processing = false;
 
-		vm.searchByIng = function(ingName, addIfReturnsDrink) {
-			vm.processing = true;
-		}
+		//vm.searchByIng = function(ingName, addIfReturnsDrink) {
+			//vm.processing = true;
+		//}
 
 		vm.toggleInfo = function(drink) {
 			if(drink['aboutToggle'] == 'hide') {
