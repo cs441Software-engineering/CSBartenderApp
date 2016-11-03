@@ -12,14 +12,18 @@ var RatingSchema = new Schema({
 		index: {
 			unique: true
 		}
+	},
 		
 	drinkNames : {
 		type: var, //add drink names into this one
 		required: true
 	},
 	
-
-	}
+	userIDs :{
+		type:[string], //array to hold the users. Check this to update a users rating
+		required: true,
+		
+	},
 
 });
 

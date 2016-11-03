@@ -18,16 +18,16 @@ var UserSchema = new Schema({
 		required: true,
 		select: false
 
-	}
+	},
 	
 	role:
 	{
 		type:String,
 		required: true,
 		
-	}
-
 	},
+
+	
 	role_status:{
 		type:String,
 		required: true,
