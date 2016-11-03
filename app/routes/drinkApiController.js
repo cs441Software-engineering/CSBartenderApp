@@ -34,6 +34,16 @@ function getIngredientsForDrink(data)
 {
 	var URLs = [];
 
+	if(data == null) 
+	{
+		return URLs;
+	}
+
+	if(data.length == 0 || data.length == null)
+	{
+		return URLs;
+	}
+
 
 	if (data.hasOwnProperty("error"))
 	{

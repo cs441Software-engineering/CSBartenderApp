@@ -1,7 +1,16 @@
 body {
-	font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+	/*font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;*/
+	font-family: cursive !important;
 	/*font-size: 0px !important;*/
 	color: white !important;
+}
+
+.navbar {
+	background-color: #283548 !important;
+}
+
+.navbar > .container {
+	background-color: #283548;
 }
 
 .jumbotron {
