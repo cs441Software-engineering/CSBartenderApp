@@ -46,3 +46,6 @@ config.js
 
 # ignore mac system file thingy
 .DS_Store
+
+# database images
+*.img
