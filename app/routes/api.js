@@ -7,6 +7,7 @@ var http = require('http');
 var config = require('../../config');
 var secret = config.secret;
 var drinkApi = require ('../../app/routes/drinkApiController');
+var ratingApi = require ('../../app/routes/ratingApiController')
 
 module.exports = function(app, express) {
 	var apiRouter = express.Router();
@@ -176,6 +177,8 @@ module.exports = function(app, express) {
 			});
 		}
 	});
+	
+
 
 	return apiRouter;
 };
