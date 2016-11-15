@@ -1,6 +1,8 @@
 var config  = require('../../config');
 var Rating = require('../models/rating');
 var request = require('request'); //http request package
+var mongoose = require('mongoose');
+
 
 
 //Get requests for rating
@@ -29,19 +31,21 @@ function calcAverage(data)
 		total+=data.drinksRating[i];
 	}
 	average = total/data.drinksRating.length;
+	collection.update({"id":ratings},{$set:{drinksAverage:average}});
 }
 
-function updateUserRating(data)
+function updateUserRating(User , data)
 {
 	var User;
-	// how do i assign the user from data?
+	// wait for this part, pass a user and rating
 	
 	
-	for(i = 0;i<data.userIds.length;i++)
+	for(i = 0;i<data.userIds.length;i++) // search for the user
 	{
 		if(User.username == data.userIDs[i])
 		{
-			return data.userIDs[i];
+			//collection.update({"id":ratings}, {$set:{drinksRating[i]:data.drinksRating[i]}});
+			// it doesn't like the i on the first drinksRating
 		}
 	}
 	
