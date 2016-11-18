@@ -63,6 +63,10 @@
 		-moz-appearance: none;
 		appearance: none;
 	}
+	.topBtn {
+		width: 100%;
+		margin-bottom: 20px;
+	}
 	@media only screen and (min-device-width: 1024px) and (max-device-width: 1920px) {
 		img {
 			height: 350px;
@@ -73,10 +77,12 @@
 		}
 	}
 </style>
+<div id="primary-content">
+</div>
 <div class="searchContainer">
-	<input ng-change="search.queryDrinks(search.searchString)" ng-model="search.searchString" type="text" class="form-control" placeholder="  Search by drink...">
+	<input ng-change="search.queryDrinks(search.searchString)" ng-model="search.searchString" type="text" class="form-control" placeholder="  {{ search.placeholder }}">
 	<div class="dropdown">
-		<select ng-model="search.activeSearchOption" ng-options="option for option in search.searchOptions"> {{ search.activeSearchOption }}
+		<select ng-change="search.toggleSearch()" ng-model="search.activeSearchOption" ng-options="option for option in search.searchOptions"> {{ search.activeSearchOption }}
 		</select>
 	</div>
 </div>
@@ -101,4 +107,5 @@
 			</div>
 		</div>
 	</div>
+	<a ng-click="search.scrollToTop()" class="btn btn-primary topBtn {{ search.topBtnHide }}">Top</a>
 </div>

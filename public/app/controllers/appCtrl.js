@@ -30,27 +30,36 @@ angular.module('appCtrl', [])
 		vm.drinks = [drink1, drink2, drink3];
 
 	})
-	.controller('searchController', function(App) {
+	.controller('searchController', function(App, $window) {
 		var vm = this;
 		vm.ingredients = [];
 		vm.drinks = [];
 		vm.processing = false;
+		vm.topBtnHide = "hide";
 
 		vm.searchOptions = [ "Drink name", "Ingredients" ];
 		vm.activeSearchOption = "Drink name";
 		vm.searchMode = 0;
+		vm.placeholder = "Search by drink...";
 
 		//vm.searchByIng = function(ingName, addIfReturnsDrink) {
 			//vm.processing = true;
 		//}
 
+		vm.scrollToTop = function() {
+			console.log('ok');
+			$window.scrollTo(0, 0);
+		}
+
 		vm.toggleSearch = function() {
 			if(vm.activeSearchOption != "Drink name") {
 				vm.searchMode = 1;
 				vm.activeSearchOption = "Ingredients";
+				vm.placeholder = "Search by ingredient...";
 			} else {
 				vm.searchMode = 0;
 				vm.activeSearchOption = "Drink name";
+				vm.placeholder = "Search by drink...";
 			}
 		}
 
@@ -100,7 +109,6 @@ angular.module('appCtrl', [])
 		}
 
 		vm.queryDrinks = function(ss) {
-			console.log(vm.activeSearchOption);
 			vm.processing = true;
 			vm.ingredients = [];
 			if(vm.searchString != "") {
@@ -112,6 +120,7 @@ angular.module('appCtrl', [])
 							if(data.data.success) {
 								if(data.data.data.result.length != 0) {
 									vm.drinks = data.data.data.result;
+									vm.topBtnHide = "show";
 									for(drink in vm.drinks) {
 										vm.drinks[drink]['mainToggle'] = 'show';
 										vm.drinks[drink]['aboutToggle'] = 'hide';
@@ -121,10 +130,13 @@ angular.module('appCtrl', [])
 									}
 								} else {
 									vm.drinks = [];
+									vm.topBtnHide = "hide";
 								}
 							} else {
 								console.log('Something went wrong getting drinks');
 							}
+						} else {
+							vm.topBtnHide = "hide";
 						}
 					});
 				} else {
@@ -135,6 +147,7 @@ angular.module('appCtrl', [])
 							if(data.data.success) {
 								if(data.data.data.result.length != 0) {
 									vm.drinks = data.data.data.result;
+									vm.topBtnHide = "show";
 									for(drink in vm.drinks) {
 										vm.drinks[drink]['mainToggle'] = 'show';
 										vm.drinks[drink]['aboutToggle'] = 'hide';
@@ -144,15 +157,19 @@ angular.module('appCtrl', [])
 									}
 								} else {
 									vm.drinks = [];
+									vm.topBtnHide = "hide";
 								}
 							} else {
 								console.log('Something went wrong getting drinks');
 							}
+						} else {
+							vm.topBtnHide = "hide";
 						}
 					});
 				}
 			} else {
 				vm.drinks = [];
+				vm.topBtnHide = "hide";
 			}
 		}
 
