@@ -36,9 +36,20 @@ angular.module('appCtrl', [])
 		vm.drinks = [];
 		vm.processing = false;
 
+		vm.searchOptions = [ "Drink name", "Ingredients" ];
+		vm.searchMode = 0;
+
 		//vm.searchByIng = function(ingName, addIfReturnsDrink) {
 			//vm.processing = true;
 		//}
+
+		vm.toggleSearch = function() {
+			if(vm.searchOptions == "Drink name") {
+				vm.searchMode = 0;
+			} else {
+				vm.searchMode = 1;
+			}
+		}
 
 		vm.toggleInfo = function(drink) {
 			if(drink['aboutToggle'] == 'hide') {
@@ -89,28 +100,53 @@ angular.module('appCtrl', [])
 			vm.processing = true;
 			vm.ingredients = [];
 			if(vm.searchString != "") {
-				App.getDrinkSearch(vm.searchString)
-				.then(function(data) {
-					vm.processing = false;
-					if(vm.searchString != "" && vm.searchString == ss) {
-						if(data.data.success) {
-							if(data.data.data.result.length != 0) {
-								vm.drinks = data.data.data.result;
-								for(drink in vm.drinks) {
-									vm.drinks[drink]['mainToggle'] = 'show';
-									vm.drinks[drink]['aboutToggle'] = 'hide';
-									vm.drinks[drink]['image'] = 'assets/img/drinks/resized/'+ vm.drinks[drink]['id'] +'.png';
-									vm.drinks[drink]['plainIngredients'] = vm.plainIngredients(vm.drinks[drink]);
-									vm.drinks[drink]['plainOccasions'] = vm.plainOccasions(vm.drinks[drink]);
+				if(!vm.searchMode) {
+					App.getDrinkSearch(vm.searchString)
+					.then(function(data) {
+						vm.processing = false;
+						if(vm.searchString != "" && vm.searchString == ss) {
+							if(data.data.success) {
+								if(data.data.data.result.length != 0) {
+									vm.drinks = data.data.data.result;
+									for(drink in vm.drinks) {
+										vm.drinks[drink]['mainToggle'] = 'show';
+										vm.drinks[drink]['aboutToggle'] = 'hide';
+										vm.drinks[drink]['image'] = 'assets/img/drinks/resized/'+ vm.drinks[drink]['id'] +'.png';
+										vm.drinks[drink]['plainIngredients'] = vm.plainIngredients(vm.drinks[drink]);
+										vm.drinks[drink]['plainOccasions'] = vm.plainOccasions(vm.drinks[drink]);
+									}
+								} else {
+									vm.drinks = [];
 								}
 							} else {
-								vm.drinks = [];
+								console.log('Something went wrong getting drinks');
 							}
-						} else {
-							console.log('Something went wrong getting drinks');
 						}
-					}
-				});
+					});
+				} else {
+					App.getDrinkByIng(vm.searchString)
+					.then(function(data) {
+						vm.processing = false;
+						if(vm.searchString != "" && vm.searchString == ss) {
+							if(data.data.success) {
+								if(data.data.data.result.length != 0) {
+									vm.drinks = data.data.data.result;
+									for(drink in vm.drinks) {
+										vm.drinks[drink]['mainToggle'] = 'show';
+										vm.drinks[drink]['aboutToggle'] = 'hide';
+										vm.drinks[drink]['image'] = 'assets/img/drinks/resized/'+ vm.drinks[drink]['id'] +'.png';
+										vm.drinks[drink]['plainIngredients'] = vm.plainIngredients(vm.drinks[drink]);
+										vm.drinks[drink]['plainOccasions'] = vm.plainOccasions(vm.drinks[drink]);
+									}
+								} else {
+									vm.drinks = [];
+								}
+							} else {
+								console.log('Something went wrong getting drinks');
+							}
+						}
+					});
+				}
 			} else {
 				vm.drinks = [];
 			}
