@@ -37,6 +37,7 @@ angular.module('appCtrl', [])
 		vm.processing = false;
 
 		vm.searchOptions = [ "Drink name", "Ingredients" ];
+		vm.activeSearchOption = "Drink name";
 		vm.searchMode = 0;
 
 		//vm.searchByIng = function(ingName, addIfReturnsDrink) {
@@ -44,10 +45,12 @@ angular.module('appCtrl', [])
 		//}
 
 		vm.toggleSearch = function() {
-			if(vm.searchOptions == "Drink name") {
-				vm.searchMode = 0;
-			} else {
+			if(vm.activeSearchOption != "Drink name") {
 				vm.searchMode = 1;
+				vm.activeSearchOption = "Ingredients";
+			} else {
+				vm.searchMode = 0;
+				vm.activeSearchOption = "Drink name";
 			}
 		}
 
@@ -97,10 +100,11 @@ angular.module('appCtrl', [])
 		}
 
 		vm.queryDrinks = function(ss) {
+			console.log(vm.activeSearchOption);
 			vm.processing = true;
 			vm.ingredients = [];
 			if(vm.searchString != "") {
-				if(!vm.searchMode) {
+				if(vm.activeSearchOption == "Drink name") {
 					App.getDrinkSearch(vm.searchString)
 					.then(function(data) {
 						vm.processing = false;
@@ -124,7 +128,7 @@ angular.module('appCtrl', [])
 						}
 					});
 				} else {
-					App.getDrinkByIng(vm.searchString)
+					App.getDrinkBy(vm.searchString)
 					.then(function(data) {
 						vm.processing = false;
 						if(vm.searchString != "" && vm.searchString == ss) {
