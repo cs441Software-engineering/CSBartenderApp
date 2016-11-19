@@ -25,13 +25,19 @@ function getRequest(href, done) {
 function calcAverage(data)
 {
 	var total = 0.0;
-	var average = 0.0;
+	var av = 0.0;
 	for(i =0; i<data.drinksRating.length ;i++)
 	{
 		total+=data.drinksRating[i];
 	}
-	average = total/data.drinksRating.length;
-	collection.update({"id":ratings},{$set:{drinksAverage:average}});
+	av = total/data.drinksRating.length;
+
+	
+	collection.findAndModify({
+		query: {drinkNames: "data.drinkNames"},
+		update: { $inc: {drinksAverage:av}},
+		upsert:true
+	})
 }
 
 function updateUserRating(User , data)
@@ -40,13 +46,23 @@ function updateUserRating(User , data)
 	// wait for this part, pass a user and rating
 	
 	
-	for(i = 0;i<data.userIds.length;i++) // search for the user
+	for(i = 0;i<data.usersNratings.length;i++) // search for the user
 	{
-		if(User.username == data.userIDs[i])
+		if(User.username == data.usersNratings.userIds[i])
 		{
-			//collection.update({"id":ratings}, {$set:{drinksRating[i]:data.drinksRating[i]}});
-			// it doesn't like the i on the first drinksRating
+				collection.findAndModify({
+					query:{drinkNames: "data.drinkNames"},
+					update:{$inc:{userIds[i]:newRating}}, //it still doesn't like the array[i]
+					update:{$inc:{userRatings[i]:newRating}},//however, we know it's that array slot we want to modify
+					upsert:true
+				})
 		}
+		
+		collection.findAndModify({
+			query:{drinkNames:"data.drinkNames"},
+			update:{$push:{userRatings:newRating}},
+			update:{$push:{userIds:User.username}},
+		})
 	}
 	
 
