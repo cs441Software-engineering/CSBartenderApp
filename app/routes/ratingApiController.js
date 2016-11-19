@@ -51,10 +51,8 @@ function updateUserRating(User , data)
 		if(User.username == data.usersNratings.userIds[i])
 		{
 				collection.findAndModify({
-					query:{drinkNames: "data.drinkNames"},
-					update:{$inc:{userIds[i]:newRating}}, //it still doesn't like the array[i]
-					update:{$inc:{userRatings[i]:newRating}},//however, we know it's that array slot we want to modify
-					upsert:true
+					query:{drinkNames: "data.drinkNames"}, 
+					update:{$set:{userRatings:newRating},$position:i},
 				})
 		}
 		
