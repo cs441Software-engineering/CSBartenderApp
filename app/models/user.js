@@ -17,7 +17,23 @@ var UserSchema = new Schema({
 		type: String,
 		required: true,
 		select: false
-	}
+
+	},
+
+	role:
+	{
+		type:String,
+		required: true,
+
+	},
+
+
+	role_status:{
+		type:String,
+		required: true,
+
+}
+
 });
 
 // This is middleware that happens before a user is saved
@@ -42,3 +58,4 @@ UserSchema.methods.comparePassword = function(password) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
+Contact GitHub API Training Shop Blog About
