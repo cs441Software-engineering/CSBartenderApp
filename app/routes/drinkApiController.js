@@ -34,6 +34,16 @@ function getIngredientsForDrink(data)
 {
 	var URLs = [];
 
+	if(data == null)
+	{
+		return URLs;
+	}
+
+	if(data.length == 0 || data.length == null)
+	{
+		return URLs;
+	}
+
 
 	if (data.hasOwnProperty("error"))
 	{
@@ -95,18 +105,18 @@ function addIngredient(data) {
 	}
 	for (x = 0; x<data.result.length; x++) {
 		for (i = 0; i<data.result[x].ingredients.length; i++) {
-			var ing = data.result[x].ingredients[i].id;	
+			var ing = data.result[x].ingredients[i].id;
 			var newIng = new Ingredient();
 			newIng.name = ing;
 			newIng.save();
 			ingredients.push(ing);
-			
+
 		}
 	}
-	
+
 	console.log(ingredients);
-	}
-	
+}
+
 
 
 

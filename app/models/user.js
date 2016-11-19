@@ -17,11 +17,6 @@ var UserSchema = new Schema({
 		type: String,
 		required: true,
 		select: false
-	},
-	role_status:{
-		type:String,
-		required: true,
-
 	}
 });
 
@@ -45,10 +40,5 @@ UserSchema.methods.comparePassword = function(password) {
 	var user = this;
 	return bcrypt.compareSync(password, user.password);
 };
-
-
-// XXX Drink Schema
-
-
 
 module.exports = mongoose.model('User', UserSchema);

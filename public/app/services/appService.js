@@ -6,7 +6,7 @@ angular.module('appService', [])
 		appFactory.getIngredient = function(name) {
 			return $http.get('/api/ingredient/' + name);
 		};
-
+		
 		appFactory.getDrinkBy = function(ing) {
 			return $http.get('/api/getDrinkByIngredient/' + ing);
 		};
@@ -19,16 +19,9 @@ angular.module('appService', [])
 
 		appFactory.addIngredient = function(name) {
 			return $http.post('/api/addIngredient', { ingredientName: name });
-		}
-
-		//Make a route that adds drinks to our database based on cards
-		// XXX
-		appFactory.addDrink = function(dri){
-			console.log(dri);
-			return $http.post('/api/addDrink', {drinkName: dri});
-		}
-
+}
 
 
 		return appFactory;
 	});
+

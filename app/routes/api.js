@@ -7,8 +7,7 @@ var http = require('http');
 var config = require('../../config');
 var secret = config.secret;
 var drinkApi = require ('../../app/routes/drinkApiController');
-var Drink = require('../models/drink');
-
+var ratingApi = require ('../../app/routes/ratingApiController')
 
 module.exports = function(app, express) {
 	var apiRouter = express.Router();
@@ -18,7 +17,7 @@ module.exports = function(app, express) {
 	// Notice it is the first route, this is very important.
 	apiRouter.post('/authenticate', function(req, res) {
 		if(req.body.username && req.body.password) {
-			User.findOne({ username: req.body.username }).select('name username password').exec(function(err, user) {
+			User.findOne({ username: req.body.username }).select('name username password role_status').exec(function(err, user) {
 				if(err)
 					throw err;
 				if(!user) {
@@ -121,7 +120,8 @@ module.exports = function(app, express) {
 	apiRouter.get('/getDrinkBySearch/:ingName', function (req, res) {
 		drinkApi.getDrinkQuickSearch(req.params.ingName, function(data, error) {
 				// console.log(data);
-				drinkApi.addIngredient(data);//added by carlos to test function
+				drinkApi.addIngredient(data);//adds ingredient
+				drinkApi.getIngredientsForDrink(data);
 				res.json({
 					success:true,
 					data:data
@@ -179,31 +179,6 @@ module.exports = function(app, express) {
 	});
 
 
-
-	//Make a route that adds drinks to our database based on cards
-	// XXX
-
-	apiRouter.post('/addDrink', function(req, res) {
-		var dri = new Drink();
-		if(req.body.drinkName && req.body.drinkIDField && req.body.drinkOcs && req.body.drinkDx && req.body.drinkIngs) {
-			//var dri = new Drink();
-			dri.name = req.body.drinkName;
-			dri.drinkIDField = req.body.drinkId;
-			dri.drinkOccasions = req.body.drinkOcs;
-			dri.drinkDiscription = req.body.drinkDx;
-			dri.drinkIngredients = req.body.drinkIngs;
-			//dri.drinkOccasions = req.body.d
-			dri.save(function(err) {
-				if (err) {
-					if (err.code == 11000)
-						return res.json({ success: false, message: 'A drink with that name already exists. '});
-					else
-						return res.json({ success: false, message: err});
-				}
-			});
-
-		}
-	});
 
 	return apiRouter;
 };

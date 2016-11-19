@@ -27,12 +27,12 @@ var DrinkSchema = new Schema({
 		drinkDiscription : {
 		type : String,
 		required : true
-	},
+	}
 
 		drinkIngredients : {
-		type : [String],
+		type : var,
 		required : true
-	},
+	}
 
 	//drink ID
 	drinkIDField : {
