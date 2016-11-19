@@ -6,17 +6,20 @@
 	<base href="/">
 
 	<title>Bartender</title>
-	
+
 	<!-- CSS -->
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
 
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Cormorant+Garamond" rel="stylesheet">
+
 	<!-- JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.min.js"></script>
-	
+
 
 	<!-- Controllers -->
 	<script src="app/controllers/mainCtrl.js"></script>
@@ -37,7 +40,7 @@
 			<div class="container">
 				<div class="navbar-header pull-left" style="display: inline-block">
 					<a href="/" class="navbar-brand">Bartender</a>
-				</div>	
+				</div>
 				<ul class="nav navbar-nav pull-right" style="display: inline-block">
 					<li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
 					<li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout of {{ main.user.username  }}</a></li>
