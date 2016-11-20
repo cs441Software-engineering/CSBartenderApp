@@ -54,13 +54,14 @@ function updateUserRating(User , data)
 					query:{drinkNames: "data.drinkNames"},
 					update:{$set:{userRatings:newRating},$position:i},
 				})
+		} else {
+			collection.findAndModify({
+				query:{drinkNames:"data.drinkNames"},
+				update:{$push:{userRatings:newRating}},
+				update:{$push:{userIds:User.username}},
+			})
 		}
 
-		collection.findAndModify({
-			query:{drinkNames:"data.drinkNames"},
-			update:{$push:{userRatings:newRating}},
-			update:{$push:{userIds:User.username}},
-		})
 	}
 
 

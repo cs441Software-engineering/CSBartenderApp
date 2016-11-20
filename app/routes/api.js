@@ -178,6 +178,28 @@ module.exports = function(app, express) {
 		}
 	});
 
+	/*
+	apiRouter.post('/makeRating', function(req, res) {
+		if(req.body.newRating) {
+			var rat = new Rating();
+			rat.name = req.body.newRating;
+
+			rat.save(function(err) {
+				if (err) {
+					//
+				} else {
+					return res.json({ success: true, message: 'Rating added!'});
+				}
+			});
+		} else {
+			res.status(403).send({
+				success: false,
+				message: 'Ingredient name not found.'
+			});
+		}
+	});
+	*/
+
 
 
 	return apiRouter;

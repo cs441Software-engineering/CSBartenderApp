@@ -58,4 +58,3 @@ UserSchema.methods.comparePassword = function(password) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
-Contact GitHub API Training Shop Blog About
