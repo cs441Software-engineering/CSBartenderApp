@@ -178,15 +178,23 @@ module.exports = function(app, express) {
 		}
 	});
 
-	/*
-	apiRouter.post('/makeRating', function(req, res) {
-		if(req.body.newRating) {
+
+	apiRouter.post('/updateUserRating', function(req, res) {
+		if(req.body.newRating && req.body.username && req.body.drinkNames) {
 			var rat = new Rating();
 			rat.name = req.body.newRating;
 
+			ratingApi.updateUserRating(req.params.username, req.params.newRating, req.params.drinkNames , function(data, error) {
+					res.json({
+						success:true,
+						data:data
+					});
+
+			});
+
 			rat.save(function(err) {
 				if (err) {
-					//
+					return res.json({ success: false, message: err});
 				} else {
 					return res.json({ success: true, message: 'Rating added!'});
 				}
@@ -194,11 +202,11 @@ module.exports = function(app, express) {
 		} else {
 			res.status(403).send({
 				success: false,
-				message: 'Ingredient name not found.'
+				message: '403, invalid rating.'
 			});
 		}
 	});
-	*/
+
 
 
 

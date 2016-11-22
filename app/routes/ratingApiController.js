@@ -42,9 +42,11 @@ function calcAverage(data)
 
 function updateUserRating(User , data)
 {
-	var User;
+	// var User;
 	// wait for this part, pass a user and rating
 
+
+	//console.log(data);
 
 	for(i = 0;i<data.usersNratings.length;i++) // search for the user
 	{
@@ -54,15 +56,21 @@ function updateUserRating(User , data)
 					query:{drinkNames: "data.drinkNames"},
 					update:{$set:{userRatings:newRating},$position:i},
 				})
-		} else {
-			collection.findAndModify({
+		}
+
+		//Removed else statement, logic was originally correct
+		collection.findAndModify({
 				query:{drinkNames:"data.drinkNames"},
 				update:{$push:{userRatings:newRating}},
 				update:{$push:{userIds:User.username}},
-			})
-		}
+		})
+
 
 	}
+
+	//console.log("Going into calc average");
+
+	calcAverage(data);
 
 
 }
