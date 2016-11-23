@@ -12,7 +12,21 @@ angular.module('authService', [])
 				AuthToken.setToken(data.token);
 				return data;
 			});
-		};
+		};()
+
+		authFactory.adminCheck = function() { 
+			if(AuthToken.getToken()) {
+			
+				return $http.get('/api/adminCheck', {cache:true})
+					.success(function(data) {
+						return data;
+					});
+				}
+			else
+			{
+				return $q.reject({message: 'user has no token'});
+			}
+		}; 
 
 		authFactory.logout = function() {
 			AuthToken.setToken();

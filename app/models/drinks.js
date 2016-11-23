@@ -19,7 +19,7 @@ var DrinkSchema = new Schema({
 	},
 
 	//the cards list out occasions/description/ingredients
-	drinkOccasions : {
+		drinkOccasions : {
 		type: String,
 		required: true
 	},
@@ -34,8 +34,8 @@ var DrinkSchema = new Schema({
 		required : true
 	},
 
-	//drink ID
-	drinkIDField : {
+		//drink ID
+		drinkIDField : {
 		type : String,
 		required : true
 	},
