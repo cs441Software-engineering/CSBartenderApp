@@ -88,26 +88,73 @@
 		</select>
 	</div>
 </div>
-<div class="row col-md-6 col-md-offset-3">
+<div class="container-fluid">
 	<div class="jumbotron" ng-repeat="drink in search.drinks" ng-click="search.toggleInfo(drink)">
-		<div class="{{ drink.mainToggle }}">
-			<span class="card-title"><h3>{{ drink.name }}</h3></span>
-			<div class="card">
-				<div class="card-image waves-effect waves-block waves-light">
-					<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
-				</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-3">
+					<div class="{{ drink.mainToggle }}">
+						<span class="card-title"><h3>{{ drink.name }}</h3></span>
+						<div class="card">
+							<div class="card-image waves-effect waves-block waves-light">
+								<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
+							</div>
+						</div>
+					</div>
+					<div class="{{ drink.aboutToggle }}">
+						<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
+						<div class="card">
+							<div class="aboutText card-image waves-effect waves-block waves-light">
+								<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
+								<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
+								<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
+							</div>
+						</div>
+					</div>
 			</div>
-		</div>
-		<div class="{{ drink.aboutToggle }}">
-			<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
-			<div class="card">
-				<div class="aboutText card-image waves-effect waves-block waves-light">
-					<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
-					<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
-					<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
+			<div class="col-xs-12 col-sm-6 col-md-3">
+				<div class="{{ drink.mainToggle }}">
+					<span class="card-title"><h3>{{ drink.name }}</h3></span>
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light">
+							<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
+						</div>
+					</div>
+				</div>
+				<div class="{{ drink.aboutToggle }}">
+					<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
+					<div class="card">
+						<div class="aboutText card-image waves-effect waves-block waves-light">
+							<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
+							<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
+							<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<div class="col-xs-12 col-sm-6 col-md-3">
+				<div class="{{ drink.mainToggle }}">
+					<span class="card-title"><h3>{{ drink.name }}</h3></span>
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light">
+							<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
+						</div>
+					</div>
+				</div>
+				<div class="{{ drink.aboutToggle }}">
+					<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
+					<div class="card">
+						<div class="aboutText card-image waves-effect waves-block waves-light">
+							<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
+							<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
+							<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<a ng-click="search.scrollToTop()" class="btn btn-primary topBtn {{ search.topBtnHide }}">Top</a>
 </div>
+	
+</div>	
+
+<a ng-click="search.scrollToTop()" class="btn btn-primary topBtn {{ search.topBtnHide }}">Top</a>
