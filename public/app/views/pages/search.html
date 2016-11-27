@@ -49,6 +49,7 @@
 	}
 	.dropdown {
 		display: inline-block;
+		
 	}
 	.searchContainer {
 		text-align: center;
@@ -56,10 +57,11 @@
 	select {
 		height: 35px;
 		border-color: black !important;
-		background-color: black !important;
-		color: white !important;
+		background-color: #5a5a5a !important;
+		color: #f1f1f1 !important;
 		display: inline-block !important;
 		-webkit-appearance: none;
+		border-radius:5px;
 		-moz-appearance: none;
 		appearance: none;
 	}
@@ -79,10 +81,10 @@
 </style>
 <div id="primary-content">
 </div>
-<div class="searchContainer">
+<div class="searchContainer" >
 	<input ng-change="search.queryDrinks(search.searchString)" ng-model="search.searchString" type="text" class="form-control" placeholder="  {{ search.placeholder }}">
-	<div class="dropdown">
-		<select ng-change="search.toggleSearch()" ng-model="search.activeSearchOption" ng-options="option for option in search.searchOptions"> {{ search.activeSearchOption }}
+	<div class="dropdown" style="padding:5px;">
+		<select ng-change="search.toggleSearch()" ng-model="search.activeSearchOption" ng-options="option for option in search.searchOptions" style="padding:5px;"> {{ search.activeSearchOption }}
 		</select>
 	</div>
 </div>
