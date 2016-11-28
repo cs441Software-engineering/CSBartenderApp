@@ -12,7 +12,7 @@
 	.jumbotron {
 		width: 350px;
 		border-radius: 15px !important;
-		min-height: 550px;
+		min-height: auto;
 		display: inline-block !important;
 	}
 	.jumbotron > .show {
@@ -93,10 +93,19 @@
 			min-height: 550px;
 		}
 	}
-	@media only screen and (min-device-width: 0px) and (max-device-width: 460px) {
-		.dContainer {
-			max-width: 150px !important;
+	@media only screen and (max-width: 460px) {
+		.container {
+			width: 100% !important;
 		}
+		.container-fluid {
+			text-align: center !important;
+		}
+		.jContainer {
+			max-width: 100% !important;
+		}
+	    .jumbotron {
+	    	max-width: 100% !important;
+	    }
 	}
 </style>
 <div id="primary-content">
