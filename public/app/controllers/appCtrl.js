@@ -30,15 +30,38 @@ angular.module('appCtrl', [])
 		vm.drinks = [drink1, drink2, drink3];
 
 	})
-	.controller('searchController', function(App) {
+	.controller('searchController', function(App, $window) {
 		var vm = this;
 		vm.ingredients = [];
 		vm.drinks = [];
 		vm.processing = false;
+		vm.topBtnHide = "hide";
+
+		vm.searchOptions = [ "Drink name", "Ingredients" ];
+		vm.activeSearchOption = "Drink name";
+		vm.searchMode = 0;
+		vm.placeholder = "Search by drink...";
 
 		//vm.searchByIng = function(ingName, addIfReturnsDrink) {
 			//vm.processing = true;
 		//}
+
+		vm.scrollToTop = function() {
+			console.log('ok');
+			$window.scrollTo(0, 0);
+		}
+
+		vm.toggleSearch = function() {
+			if(vm.activeSearchOption != "Drink name") {
+				vm.searchMode = 1;
+				vm.activeSearchOption = "Ingredients";
+				vm.placeholder = "Search by ingredient...";
+			} else {
+				vm.searchMode = 0;
+				vm.activeSearchOption = "Drink name";
+				vm.placeholder = "Search by drink...";
+			}
+		}
 
 		vm.toggleInfo = function(drink) {
 			if(drink['aboutToggle'] == 'hide') {
@@ -89,30 +112,64 @@ angular.module('appCtrl', [])
 			vm.processing = true;
 			vm.ingredients = [];
 			if(vm.searchString != "") {
-				App.getDrinkSearch(vm.searchString)
-				.then(function(data) {
-					vm.processing = false;
-					if(vm.searchString != "" && vm.searchString == ss) {
-						if(data.data.success) {
-							if(data.data.data.result.length != 0) {
-								vm.drinks = data.data.data.result;
-								for(drink in vm.drinks) {
-									vm.drinks[drink]['mainToggle'] = 'show';
-									vm.drinks[drink]['aboutToggle'] = 'hide';
-									vm.drinks[drink]['image'] = 'assets/img/drinks/resized/'+ vm.drinks[drink]['id'] +'.png';
-									vm.drinks[drink]['plainIngredients'] = vm.plainIngredients(vm.drinks[drink]);
-									vm.drinks[drink]['plainOccasions'] = vm.plainOccasions(vm.drinks[drink]);
+				if(vm.activeSearchOption == "Drink name") {
+					App.getDrinkSearch(vm.searchString)
+					.then(function(data) {
+						vm.processing = false;
+						if(vm.searchString != "" && vm.searchString == ss) {
+							if(data.data.success) {
+								if(data.data.data.result.length != 0) {
+									vm.drinks = data.data.data.result;
+									vm.topBtnHide = "show";
+									for(drink in vm.drinks) {
+										vm.drinks[drink]['mainToggle'] = 'show';
+										vm.drinks[drink]['aboutToggle'] = 'hide';
+										vm.drinks[drink]['image'] = 'assets/img/drinks/resized/'+ vm.drinks[drink]['id'] +'.png';
+										vm.drinks[drink]['plainIngredients'] = vm.plainIngredients(vm.drinks[drink]);
+										vm.drinks[drink]['plainOccasions'] = vm.plainOccasions(vm.drinks[drink]);
+									}
+								} else {
+									vm.drinks = [];
+									vm.topBtnHide = "hide";
 								}
 							} else {
-								vm.drinks = [];
+								console.log('Something went wrong getting drinks');
 							}
 						} else {
-							console.log('Something went wrong getting drinks');
+							vm.topBtnHide = "hide";
 						}
-					}
-				});
+					});
+				} else {
+					App.getDrinkBy(vm.searchString)
+					.then(function(data) {
+						vm.processing = false;
+						if(vm.searchString != "" && vm.searchString == ss) {
+							if(data.data.success) {
+								if(data.data.data.result.length != 0) {
+									vm.drinks = data.data.data.result;
+									vm.topBtnHide = "show";
+									for(drink in vm.drinks) {
+										vm.drinks[drink]['mainToggle'] = 'show';
+										vm.drinks[drink]['aboutToggle'] = 'hide';
+										vm.drinks[drink]['image'] = 'assets/img/drinks/resized/'+ vm.drinks[drink]['id'] +'.png';
+										vm.drinks[drink]['plainIngredients'] = vm.plainIngredients(vm.drinks[drink]);
+										vm.drinks[drink]['plainOccasions'] = vm.plainOccasions(vm.drinks[drink]);
+									}
+								} else {
+									vm.drinks = [];
+									vm.topBtnHide = "hide";
+								}
+							} else {
+								console.log('Something went wrong getting drinks');
+							}
+						} else {
+							vm.topBtnHide = "hide";
+						}
+					});
+				}
 			} else {
 				vm.drinks = [];
+				vm.topBtnHide = "hide";
 			}
 		}
 

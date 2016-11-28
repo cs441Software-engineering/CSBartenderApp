@@ -114,7 +114,7 @@ module.exports = function(app, express) {
 				}
 			});
 		});
-});
+	});
 
 	//use this for testing and parsing of ingredients
 	apiRouter.get('/getDrinkBySearch/:ingName', function (req, res) {
