@@ -5,11 +5,11 @@ angular.module('mainCtrl', [])
 		vm.loggedIn = Auth.isLoggedIn();
 
 		$rootScope.$on('$routeChangeStart', function() {
-			vm.loggedIn = Auth.isLoggedIn();	
+			vm.loggedIn = Auth.isLoggedIn();
 			Auth.getUser()
 				.then(function(data) {
 					vm.user = data.data;
-				});	
+				});
 		});
 
 		if(AuthToken.returnStorageMode()) {
@@ -19,6 +19,8 @@ angular.module('mainCtrl', [])
 		vm.doRegister = function() {
 			vm.processing = true;
 			vm.error = '';
+			console.log(vm.userData.username);
+			console.log(vm.userData.password);
 			Auth.registerUser(vm.userData.username, vm.userData.password)
 				.success(function(data) {
 					if(data.success) {
@@ -45,13 +47,15 @@ angular.module('mainCtrl', [])
 		vm.doLogout = function() {
 			Auth.logout();
 			vm.user = null;
-			
+
 			$location.path('/');
 		}
 
 		vm.doLogin = function() {
 			vm.processing = true
 			vm.error = '';
+			console.log(vm.loginData.username);
+			console.log(vm.loginData.password);
 
 			Auth.login(vm.loginData.username, vm.loginData.password)
 				.success(function(data) {

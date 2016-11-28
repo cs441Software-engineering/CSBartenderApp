@@ -1,6 +1,6 @@
 // This page is very important. Angular, the JS framework we are using,
 // allows us to declare routes on the front end. This means we can load pages
-// as if the website was a single view app. 
+// as if the website was a single view app.
 angular.module('app.routes', ['ngRoute'])
 	.config(function($routeProvider, $locationProvider) {
 		$routeProvider
@@ -16,6 +16,11 @@ angular.module('app.routes', ['ngRoute'])
 				templateUrl: 'app/views/pages/register.html',
 				controller  : 'mainController',
 	    		controllerAs: 'register'
+			})
+			.when('/adminpanel', {
+				templateUrl: 'app/views/pages/adminpanel.html',
+				controller  : 'adminController',
+					controllerAs: 'adminpanel'
 			})
 			.when('/app', {
 				templateUrl: 'app/views/pages/app.html',

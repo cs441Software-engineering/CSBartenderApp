@@ -6,7 +6,7 @@ angular.module('appService', [])
 		appFactory.getIngredient = function(name) {
 			return $http.get('/api/ingredient/' + name);
 		};
-		
+
 		appFactory.getDrinkBy = function(ing) {
 			return $http.get('/api/getDrinkByIngredient/' + ing);
 		};
@@ -15,13 +15,14 @@ angular.module('appService', [])
 		appFactory.getDrinkSearch = function(ing) {
 			console.log(ing);
 			return $http.get('/api/getDrinkBySearch/' + ing);
-		}
+		};
 
 		appFactory.addIngredient = function(name) {
-			return $http.post('/api/addIngredient', { ingredientName: name });
-}
-
+			console.log("eggs");
+			return $http.post('/api/addIngredient', {
+				ingredientName: name
+			});
+		};
 
 		return appFactory;
 	});
-

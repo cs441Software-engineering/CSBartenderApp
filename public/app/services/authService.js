@@ -66,10 +66,10 @@ angular.module('authService', [])
 		    try {
 		        storage.setItem(testKey, '1');
 		        storage.removeItem(testKey);
-		    } 
+		    }
 		    catch (error) {
 		        return true;
-		    }		
+		    }
 		    return false;
 		};
 

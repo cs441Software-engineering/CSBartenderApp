@@ -30,6 +30,18 @@ angular.module('appCtrl', [])
 		vm.drinks = [drink1, drink2, drink3];
 
 	})
+
+	.controller('adminController', function(App) {
+		var vm = this;
+		vm.processing = false;
+		vm.doIngredient = function() {
+			vm.processing = true;
+			App.addIngredient(vm.ingredientName).then(function() {
+					vm.processing = false;
+			});
+		};
+	})
+
 	.controller('searchController', function(App) {
 		var vm = this;
 		vm.ingredients = [];
@@ -49,7 +61,7 @@ angular.module('appCtrl', [])
 				drink['aboutToggle'] = 'hide';
 			}
 		}
-		
+
 		vm.plainIngredients = function(drink) {
 			var ings = drink['ingredients'];
 			var ingString = "";

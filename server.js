@@ -34,6 +34,8 @@ app.use('/api', apiRoutes)
 // It sits outside our api and above our catchall endpoint.
 app.post('/register', function(req, res) {
 	if(req.body.username && req.body.password) {
+		console.log(req.body.username);
+		console.log(req.body.password);
 		var User = require('./app/models/user');
 		var user = new User();
 		user.username = req.body.username;
@@ -41,9 +43,9 @@ app.post('/register', function(req, res) {
 		user.role_status = 'normal';
 		user.save(function(err) {
 			if (err) {
-				if (err.code == 11000) 
+				if (err.code == 11000)
 					return res.json({ success: false, message: 'A user with that username already exists. '});
-				else 
+				else
 					return res.json({ success: false, message: err});
 			} else {
 				return res.json({ success: true, message: 'User created!'});
