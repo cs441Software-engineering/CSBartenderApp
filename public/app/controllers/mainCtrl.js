@@ -76,4 +76,10 @@ angular.module('mainCtrl', [])
 			});
 		};
 
+		var socket = io('http://localhost:3001');
+		socket.on('connect', function() {
+			console.log('socket connected');
+			socket.emit('send-name', vm.user.username);
+		});
+
 });

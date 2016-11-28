@@ -8,6 +8,91 @@ var config = require('./config');
 // Create an express app.
 var app = express();
 
+//socket.io
+var socketApp = require('express')();
+var http = require('http').Server(socketApp);
+var io = require('socket.io')(http);
+
+var userCount = 0;
+var userList = [];
+var dupeList = [];
+
+io.on('connection', function(socket) {
+	userCount++;
+
+	socket.on('send-name', function(name) {
+		if(!checkForDupe(name)) {
+			console.log(name);
+			userList.push(name);
+			emitNames(socket, 3000);
+		}
+	});
+
+	socket.emit('userCount', userCount);
+	socket.broadcast.emit('userCount', userCount);
+	socket.on('disconnect', function() {
+		userCount--;
+		userList = [];
+		socket.broadcast.emit('update-server-names');
+		socket.broadcast.emit('userCount', userCount);
+	});
+});
+
+checkInDupeList = function(name) {
+	var flag = false;
+	for(n in dupeList) {
+		if (name == dupeList[n])
+			flag = true;
+	}
+	return flag;
+}
+
+findAndReplaceDupes = function(name, list) {
+	var newList = [];
+
+	for(n in list) {
+		if(list[n] != name) 
+			newList.push(name); 
+	}
+
+	var dupeCount = countDupes(name);
+	name = name + ' (' + dupeCount + ')';
+	newList.push(name);
+	return newList;
+}
+
+checkForDupe = function(name) {
+	var flag = false;
+	for(n in userList) {
+		if(name == userList[n])
+			flag = true;
+	}
+	return flag;
+}
+
+countDupes = function(name) {
+	var count = 1;
+	for(n in userList) {
+		if(name == userList[n])
+			count++;
+	}
+	return count;
+}
+
+emitNames = function(s, t) {
+	setTimeout(
+		function() {
+			s.emit('update-names', userList);
+			s.broadcast.emit('update-names', userList);
+		}, t
+	);
+}
+
+http.listen(config.socketPort, function() {
+	console.log('Socket is up on port ' + config.socketPort);
+});
+
+
 // Connect to our database.
 mongoose.connect(config.database);
 // Use morgan to debug, comment out if not needed.

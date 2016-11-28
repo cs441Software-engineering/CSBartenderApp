@@ -1,0 +1,20 @@
+<style>
+	.registerBtn h5 a {
+		color: white;
+	}
+	input[type='text'],
+	input[type='number'],
+	textarea {
+	  font-size: 16px;
+	}
+</style>
+<div class="row col-md-6 col-md-offset-3">
+
+	<div class="jumbotron">
+		Count: {{ list.count }}
+		<h5 ng-repeat="name in list.names">
+			{{ name }}
+		</h5>
+	</div>
+	
+</div> 
