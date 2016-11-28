@@ -30,6 +30,11 @@ angular.module('app.routes', ['ngRoute'])
 			.when('/private', {
 				templateUrl: 'app/views/pages/private.html',
 			})
+			.when('/userList', {
+				templateUrl: 'app/views/pages/list.html',
+				controller  : 'listController',
+	    		controllerAs: 'list'
+			})
 			.when('/:templatePath*', {
 				templateUrl: 'app/views/pages/404.html'
 			});

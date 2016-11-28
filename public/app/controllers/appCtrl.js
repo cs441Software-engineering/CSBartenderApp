@@ -9,6 +9,27 @@ angular.module('appCtrl', [])
 	    }
 	  }
 	})
+	.controller('listController', function(Auth) {
+		var vm = this;
+
+		vm.names = [];
+		vm.count = 0;
+
+		vm.update = function() {
+			Auth.getUser();
+		}
+
+		var socket = io('http://localhost:3001');
+		socket.on('connect', function() {
+			
+		});
+		socket.on('update-names', function(names) {
+			vm.names = names;
+			vm.count = names.length;
+			console.log(names);
+			vm.update();
+		});
+	})
 	.controller('appController', function() {
 		var vm = this;
 
