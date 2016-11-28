@@ -16,6 +16,7 @@ angular.module('mainCtrl', [])
 			$location.path('/private');
 		}
 
+
 		vm.doRegister = function() {
 			vm.processing = true;
 			vm.error = '';
@@ -32,6 +33,19 @@ angular.module('mainCtrl', [])
 							});
 					}
 				});
+		};
+
+		vm.goControlPan = function () {
+			vm.error = '';
+			Auth.adminCheck()
+				.then(function(data) {
+					if (data.success) {
+					$location.path('/')//to be added
+				}
+					else {
+						$location.path('/search');//redirects automatically if no admin privileges 
+					}
+			});
 		};
 
 		vm.loginRedirect = function() {

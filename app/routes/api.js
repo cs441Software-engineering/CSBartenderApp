@@ -7,6 +7,7 @@ var http = require('http');
 var config = require('../../config');
 var secret = config.secret;
 var drinkApi = require ('../../app/routes/drinkApiController');
+var Drink = require('../models/drinks');
 
 module.exports = function(app, express) {
 	var apiRouter = express.Router();
@@ -34,7 +35,8 @@ module.exports = function(app, express) {
 					} else {
 						var token = jwt.sign({
 							name: user.name,
-							username: user.username
+							username: user.username,
+							role: user.role_status
 						}, secret, {
 							expiresIn: 60*60*24
 						});
@@ -89,6 +91,25 @@ module.exports = function(app, express) {
 		res.send(req.decoded);
 	});
 
+	//This endpoint is used to figure out if a user has admin privileges
+	apiRouter.get('/adminCheck', function (req, res) {
+		req.decoded = decoded; 
+		if (decoded.token.role == 'admin') {
+			res.json ({
+				success: true,
+				token: decoded;
+			});
+		
+		}
+		else {
+			res.json ({
+				success: false,
+				message: 'user does not have admin privileges'
+			});
+		}
+
+	});
+
 	apiRouter.get('/getDrinkByIngredient/:ingName', function(req, res) {
 		data = http.get({
 			host: 'addb.absolutdrinks.com',
@@ -118,7 +139,6 @@ module.exports = function(app, express) {
 	//use this for testing and parsing of ingredients
 	apiRouter.get('/getDrinkBySearch/:ingName', function (req, res) {
 		drinkApi.getDrinkQuickSearch(req.params.ingName, function(data, error) {
-				// console.log(data);
 				drinkApi.addIngredient(data);//adds ingredient
 				drinkApi.getIngredientsForDrink(data);
 				res.json({
@@ -173,6 +193,41 @@ module.exports = function(app, express) {
 			res.status(403).send({
 				success: false,
 				message: 'Ingredient name not found.'
+			});
+		}
+	});
+
+	apiRouter.post('/addDrink', function(req, res) {
+		if(req.body.drinkName && req.body.drinkOccasion && req.body.drinkDescription && req.body.drinkIngredient && req.body.drinkID) {
+			var drin = new Drink();
+			var drinkIng = []
+			var DI = req.body.drinkIngredient; //DI = drinkIngredient
+			for (var x = 0; x<DI.length; x++)
+			{
+				drinkIng.push(DI[x]);
+			}
+			console.log(drinkIng);
+			drin.name = req.body.drinkName;
+			drin.drinkOccasions = req.body.drinkOccasion;
+			drin.drinkDescription = req.body.drinkDescription;
+			drin.drinkIDField = req.body.drinkID;
+			drin.drinkIngredients = drinkIng;
+			drin.save(function(err) {
+				if(err) { //if there is an error then appropiate message is displayed
+					if (err.code == 11000)
+						return res.json({success: false, message: 'A drink with that name already exist'});
+					else
+						return res.json({success: false, message: err});
+				}
+				else { //if there is no error then the drink is added to the database
+					return res.json({success: true, message: 'Drink created!'});
+				}
+			});
+		}
+		else { //error checks 1st if statement
+			res.status(403).send({
+				success: false,
+				message: 'drink parimeter not filled out'
 			});
 		}
 	});

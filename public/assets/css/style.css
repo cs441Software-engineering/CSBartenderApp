@@ -1,8 +1,12 @@
 body {
 	/*font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;*/
-	font-family: cursive !important;
+	/*font-family: cursive !important;*/
+	font-family: 'Cormorant Garamond', serif;
 	/*font-size: 0px !important;*/
 	color: white !important;
+}
+div{
+	font-family: 'Cormorant Garamond', serif;
 }
 
 .navbar {
