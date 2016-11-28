@@ -32,6 +32,20 @@ angular.module('authService', [])
 				return false;
 		};
 
+		authFactory.adminCheck = function() { 
+			if(AuthToken.getToken()) {
+			
+				return $http.get('/api/adminCheck', {cache:true})
+					.success(function(data) {
+						return data;
+					});
+				}
+			else
+			{
+				return $q.reject({message: 'user has no token'});
+			}
+		}; 
+
 		authFactory.getUser = function() {
 			if(AuthToken.getToken())
 				return $http.get('/api/me', { cache: true });
