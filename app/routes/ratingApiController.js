@@ -56,14 +56,13 @@ function updateUserRating(User , data)
 					query:{drinkNames: "data.drinkNames"},
 					update:{$set:{userRatings:newRating},$position:i},
 				})
-		}
-
-		//Removed else statement, logic was originally correct
-		collection.findAndModify({
+		} else {
+				collection.findAndModify({
 				query:{drinkNames:"data.drinkNames"},
 				update:{$push:{userRatings:newRating}},
 				update:{$push:{userIds:User.username}},
-		})
+				})
+		}
 
 
 	}
