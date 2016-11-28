@@ -19,6 +19,10 @@ angular.module('appCtrl', [])
 			Auth.getUser();
 		}
 
+		vm.loginRedirect = function() {
+			$location.path('/login');
+		};
+		
 		var socket = io('http://localhost:3001');
 		socket.on('connect', function() {
 			
