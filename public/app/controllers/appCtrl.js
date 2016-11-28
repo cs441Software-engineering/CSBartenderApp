@@ -120,6 +120,7 @@ angular.module('appCtrl', [])
 							if(data.data.success) {
 								if(data.data.data.result.length != 0) {
 									vm.drinks = data.data.data.result;
+									console.log(vm.drinks);
 									vm.topBtnHide = "show";
 									for(drink in vm.drinks) {
 										vm.drinks[drink]['mainToggle'] = 'show';

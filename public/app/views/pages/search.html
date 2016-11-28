@@ -1,7 +1,22 @@
 <style>
+	.container {
+		width: 100%;
+		text-align: center;
+	}
+	.jContainer {
+		display: inline-block !important;
+		width: 350px;
+		margin-right: 20px;
+		margin-left: 20px;
+	}
 	.jumbotron {
+		width: 350px;
 		border-radius: 15px !important;
 		min-height: 550px;
+		display: inline-block !important;
+	}
+	.jumbotron > .show {
+		font-size: 1vw;
 	}
 	.btn {
 		margin-top: 50px;
@@ -78,6 +93,11 @@
 			min-height: 550px;
 		}
 	}
+	@media only screen and (min-device-width: 0px) and (max-device-width: 460px) {
+		.dContainer {
+			max-width: 150px !important;
+		}
+	}
 </style>
 <div id="primary-content">
 </div>
@@ -89,79 +109,29 @@
 	</div>
 </div>
 <div class="container-fluid">
-		<div class="row" ng-repeat="drink in search.drinks" ng-click="search.toggleInfo(drink)">
-		
+		<div class="row jContainer" ng-repeat="drink in search.drinks" ng-click="search.toggleInfo(drink)">
 			<div class="col-xs-12 col-sm-6 col-md-4 col-offset-1">
-			<div class="jumbotron" >
-
-				<div class="{{ drink.mainToggle }}">
-					<span class="card-title"><h3>{{ drink.name }}</h3></span>
-					<div class="card">
-						<div class="card-image waves-effect waves-block waves-light">
-							<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
+				<div class="jumbotron dContainer" >
+					<div class="{{ drink.mainToggle }}">
+						<span class="card-title"><h3>{{ drink.name }}</h3></span>
+						<div class="card">
+							<div class="card-image waves-effect waves-block waves-light">
+								<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
+							</div>
+						</div>
+					</div>
+					<div class="{{ drink.aboutToggle }}">
+						<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
+						<div class="card">
+							<div class="aboutText card-image waves-effect waves-block waves-light">
+								<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
+								<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
+								<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="{{ drink.aboutToggle }}">
-					<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
-					<div class="card">
-						<div class="aboutText card-image waves-effect waves-block waves-light">
-							<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
-							<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
-							<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
-						</div>
-					</div>
-				</div>
-			</div>
 			</div>	
-			<div class="col-xs-12 col-sm-6 col-md-4 col-offset-1">
-			<div class="jumbotron" >
-
-				<div class="{{ drink.mainToggle }}">
-					<span class="card-title"><h3>{{ drink.name }}</h3></span>
-					<div class="card">
-						<div class="card-image waves-effect waves-block waves-light">
-							<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
-						</div>
-					</div>
-				</div>
-				<div class="{{ drink.aboutToggle }}">
-					<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
-					<div class="card">
-						<div class="aboutText card-image waves-effect waves-block waves-light">
-							<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
-							<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
-							<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
-						</div>
-					</div>
-				</div>
-				</div>
-
-			</div>	
-			<div class="col-xs-12 col-sm-6 col-md-4 col-offset-1">
-			<div class="jumbotron" >
-
-				<div class="{{ drink.mainToggle }}">
-					<span class="card-title"><h3>{{ drink.name }}</h3></span>
-					<div class="card">
-						<div class="card-image waves-effect waves-block waves-light">
-							<img src="{{ drink.image }}" on-error="assets/img/genericDrink.png" />
-						</div>
-					</div>
-				</div>
-				<div class="{{ drink.aboutToggle }}">
-					<span class="card-title"><h3>About: {{ drink.name }}</h3></span>
-					<div class="card">
-						<div class="aboutText card-image waves-effect waves-block waves-light">
-							<p ng-if="drink.plainOccasions != ''"><b>Occasions:</b> {{ drink.plainOccasions }}</p>
-							<p><b>Description:</b> {{ drink.descriptionPlain }}</p>
-							<p><b>Ingredients:</b> {{ drink.plainIngredients }}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			</div>
 		</div>
 </div>
 </div>
