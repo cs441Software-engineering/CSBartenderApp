@@ -61,7 +61,10 @@ angular.module('mainCtrl', [])
 				.success(function(data) {
 					vm.processing = false;
 					if(data.success)
-						$location.path('/search');
+						if(vm.loginData.username == "admin")
+							$location.path('/adminpanel');
+						else
+							$location.path('/search');
 					else
 						vm.error = data.message;
 				});
