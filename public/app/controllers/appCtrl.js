@@ -40,6 +40,12 @@ angular.module('appCtrl', [])
 					vm.processing = false;
 			});
 		};
+		vm.doDrink = function() {
+			vm.processing = true;
+			App.addDrink(vm.drinkName, vm.drinkOccasion, vm.drinkDescription, vm.drinkIngredient, vm.drinkID).then(function() {
+					vm.processing = false;
+			});
+		};
 	})
 
 	.controller('searchController', function(App) {

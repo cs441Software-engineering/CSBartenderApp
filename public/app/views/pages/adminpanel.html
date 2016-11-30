@@ -24,5 +24,41 @@
 			</button>
 			<br>
 		</form>
+
+
+		<form ng-submit="adminpanel.doDrink()">
+			<h3>Add Drink</h3>
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" autocorrect="off" autocapitalize="none" class="form-control" ng-model="adminpanel.drinkName">
+			</div>
+			<div class="form-group">
+				<label>Occasion</label>
+				<input type="text" autocorrect="off" autocapitalize="none" class="form-control" ng-model="adminpanel.drinkOccasion">
+			</div>
+			<div class="form-group">
+				<label>Description</label>
+				<input type="text" autocorrect="off" autocapitalize="none" class="form-control" ng-model="adminpanel.drinkDescription">
+			</div>
+			<div class="form-group">
+				<label>Ingredients</label>
+				<input type="text" autocorrect="off" autocapitalize="none" class="form-control" ng-model="adminpanel.drinkIngredient">
+			</div>
+			<div class="form-group">
+				<label>ID</label>
+				<input type="text" autocorrect="off" autocapitalize="none" class="form-control" ng-model="adminpanel.drinkID">
+			</div>
+			<button type="submit" class="btn btn-block btn-primary">
+				<span ng-if="!adminpanel.processing">Add</span>
+				<span ng-if="adminpanel.processing" class="spinner"><span class="glyphicon glyphicon-repeat"></span></span>
+			</button>
+			<br>
+
+			<div class="registerBtn">
+				<h5><a href="/search" >search</a></h5>
+			</div>
+
+		</form>
+
 	</div>
 </div>

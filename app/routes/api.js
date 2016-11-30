@@ -199,13 +199,11 @@ module.exports = function(app, express) {
 						return res.json({success: false, message: 'A drink with that name already exist'});
 					else
 						return res.json({success: false, message: err});
-				}
-				else { //if there is no error then the drink is added to the database
+				} else { //if there is no error then the drink is added to the database
 					return res.json({success: true, message: 'Drink created!'});
 				}
 			});
-		}
-		else { //error checks 1st if statement
+		} else { //error checks 1st if statement
 			res.status(403).send({
 				success: false,
 				message: 'drink parimeter not filled out'

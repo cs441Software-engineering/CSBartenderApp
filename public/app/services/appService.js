@@ -24,5 +24,16 @@ angular.module('appService', [])
 			});
 		};
 
+		appFactory.addDrink = function(name, drinkOccasions, drinkDescription, drinkIngredients, drinkIDField) {
+			console.log("bacon");
+			return $http.post('/api/addDrink', {
+				drinkName: name,
+				drinkOccasion: drinkOccasions,
+				drinkDescription: drinkDescription,
+				drinkIngredient: drinkIngredients,
+				drinkID: drinkIDField
+			});
+		};
+
 		return appFactory;
 	});
